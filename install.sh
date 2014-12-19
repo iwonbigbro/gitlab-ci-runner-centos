@@ -55,8 +55,13 @@ sed -i "/APP_ROOT=/c\APP_ROOT=$(GLCIR_ROOT)" /etc/init.d/gitlab-ci-runner
 chmod +x /etc/init.d/gitlab-ci-runner
 chkconfig --level 3 gitlab-ci-runner on
 
-echo "You may now set up the runner:"
-echo " bundle exec ./bin/setup"
-echo ""
-echo "Afterward, start the runner by becoming root and running:"
-echo " service gitlab-ci-runner start"
+cat <<'FINISH'
+You may now set up the runner:
+ bundle exec ./bin/setup
+
+Afterward, start the runner by becoming root and running:
+ service gitlab-ci-runner start
+
+If your GitLab server is using self-signed certificate, you should run:
+ ./git-remote-install-cert.sh https://<gitlab-server>/
+FINISH
